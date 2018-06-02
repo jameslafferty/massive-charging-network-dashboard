@@ -3,17 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "charging-station-dashboard": {
+    "massive-charging-network-dashboard": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "mcn",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/charging-station-dashboard",
+            "outputPath": "dist/massive-charging-network-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,7 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "charging-station-dashboard:build"
+            "browserTarget": "massive-charging-network-dashboard:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "charging-station-dashboard:build:production"
+              "browserTarget": "massive-charging-network-dashboard:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "charging-station-dashboard:build"
+            "browserTarget": "massive-charging-network-dashboard:build"
           }
         },
         "test": {
@@ -72,7 +72,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -95,7 +95,7 @@
         }
       }
     },
-    "charging-station-dashboard-e2e": {
+    "massive-charging-network-dashboard-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "charging-station-dashboard:serve"
+            "devServerTarget": "massive-charging-network-dashboard:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "charging-station-dashboard:serve:production"
+              "devServerTarget": "massive-charging-network-dashboard:serve:production"
             }
           }
         },
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "charging-station-dashboard"
+  "defaultProject": "massive-charging-network-dashboard"
 }
