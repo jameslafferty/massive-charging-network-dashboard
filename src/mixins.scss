@@ -1,0 +1,11 @@
+@function size($size: m) {
+  @return map-get((
+    xs: 2px,
+    s: 4px,
+    m: 8px,
+    l: 16px,
+    xl: 24px,
+    xxl: 48px,
+    xxxl: 96px,
+  ), $size);
+}

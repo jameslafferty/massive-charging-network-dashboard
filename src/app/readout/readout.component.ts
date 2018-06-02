@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'mcn-readout',
   templateUrl: './readout.component.html',
-  styleUrls: ['./readout.component.css']
+  styleUrls: ['./readout.component.scss']
 })
 export class ReadoutComponent implements OnInit {
 

@@ -1,0 +1,37 @@
+@import '../../mixins';
+
+:host {
+  display: block;
+}
+
+$charging: rgb(0,255,0);
+$occupied: rgb(255,0,0);
+$open: rgb(0,0,255);
+
+a {
+  display: block;
+  height: size(xl);
+  width: size(l);
+  margin: size(xs);
+}
+
+.charging {
+  background-color: $charging;
+  &.selected {
+    background-color: darken($charging, 25%);
+  }
+}
+
+.occupied {
+  background-color: $occupied;
+  &.selected {
+    background-color: darken($occupied, 25%);
+  }
+}
+
+.open {
+  background-color: $open;
+  &.selected {
+    background-color: darken($open, 25%);
+  }
+}
