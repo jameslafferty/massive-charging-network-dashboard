@@ -7,7 +7,7 @@ import { FacilityService } from './facility.service';
 
 const responses = [{
   id: '1',
-  name: 'My Facility',
+  name: 'Google North Garage 1',
   spaces: [
     [{
       id: '1',
@@ -191,7 +191,7 @@ const responses = [{
   ]
 }, {
   id: '2',
-  name: 'Your Facility',
+  name: 'Google South Garage 3',
   spaces: [
     [{
       id: '1',
@@ -406,7 +406,6 @@ const responses = [{
     }],
   ]
 }];
-
 @Injectable({
   providedIn: 'root'
 })

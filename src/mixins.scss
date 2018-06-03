@@ -1,4 +1,4 @@
-@function size($size: m) {
+@function space($size: m) {
   @return map-get((
     xs: 2px,
     s: 4px,

@@ -71,10 +71,12 @@ export class LineGraphComponent implements OnInit {
               right: 24,
               bottom: 0,
               left: 24,
-            },
+            }
           });
           chart.resize();
           this.changeDetectorRef.detectChanges();
+          setTimeout(() => Array.from(this.elementRef.nativeElement.querySelectorAll('svg'))
+            .forEach((svg: HTMLElement) => svg.style.overflow = 'visible'), 60);
         }, 60);
       });
     }

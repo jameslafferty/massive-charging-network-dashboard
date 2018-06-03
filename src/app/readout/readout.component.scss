@@ -1,8 +1,14 @@
+@import '../../mixins';
+
 :host > div {
   display: none;
   &.displayed {
     display: block;
   }
+}
+
+dl > div {
+  margin-bottom: space(m);
 }
 
 dt, dd {
