@@ -1,10 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
-export interface ParkingSpace {
-  readonly id: string;
-  status: string;
-}
-
 @Component({
   selector: 'mcn-parking-space',
   templateUrl: './parking-space.component.html',

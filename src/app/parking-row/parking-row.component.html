@@ -1,5 +1,6 @@
 <ng-container *ngFor="let space of spaces;">
   <mcn-parking-space
     (select)="spaceSelected($event, space.id);"
+    [id]="space.id"
     [status]="space.status"></mcn-parking-space>
 </ng-container>

@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener, ContentChildren, AfterContentInit, AfterViewInit, ViewChildren, Input } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChildren, Input } from '@angular/core';
 
-import { ParkingSpace, ParkingSpaceComponent } from '../parking-space/parking-space.component';
+import { ParkingSpace } from '../ParkingSpace';
 import { MatCheckboxChange } from '@angular/material';
 import { ParkingRowComponent } from '../parking-row/parking-row.component';
 import { ParkingSpaceService } from '../parking-space.service';
@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
   }
 
   selectedSpaces(ids: string[]) {
-    console.log(ids);
+    this.parkingSpaceService.setSelectedSpaces(this.id, ids);
   }
 
   ngOnInit(): void {

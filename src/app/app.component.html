@@ -1,10 +1,9 @@
-<mat-grid-list
-  cols="2"
-  rowHeight="calc(100vh - 32px)">
-  <mat-grid-tile>
-    <mcn-map></mcn-map>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mcn-readout></mcn-readout>
-  </mat-grid-tile>
-</mat-grid-list>
+<mat-toolbar>
+  <span class="logo">Massive</span>
+</mat-toolbar>
+<div class="facility" *ngFor="let facility of facilities;">
+  <mcn-map
+    [id]="facility.id"></mcn-map>
+  <mcn-readout
+    [id]="facility.id"></mcn-readout>
+</div>

@@ -1,6 +1,7 @@
 import { Component, Input, ViewChildren, EventEmitter, Output } from '@angular/core';
 
-import { ParkingSpace, ParkingSpaceComponent } from '../parking-space/parking-space.component';
+import { ParkingSpaceComponent } from '../parking-space/parking-space.component';
+import { ParkingSpace } from '../ParkingSpace';
 
 @Component({
   selector: 'mcn-parking-row',

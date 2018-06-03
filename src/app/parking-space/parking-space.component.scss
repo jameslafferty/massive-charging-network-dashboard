@@ -11,6 +11,9 @@ $open: rgb(0,0,255);
 a {
   display: block;
   height: size(xl);
+  line-height: size(xl);
+  text-align: center;
+  text-decoration: none;
   width: size(l);
   margin: size(xs);
 }

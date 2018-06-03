@@ -1,0 +1,14 @@
+@import '../mixins';
+
+.facility {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+}
+
+mcn-map, mcn-readout {
+  box-sizing: border-box;
+  display: block;
+  padding: size(l);
+  width: 50%;
+}
