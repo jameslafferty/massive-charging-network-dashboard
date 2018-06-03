@@ -1,61 +1,20 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import * as c3 from 'c3';
+import { Observable } from 'rxjs';
+
+import { ParkingSpace } from '../ParkingSpace';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'mcn-line-graph',
   templateUrl: './line-graph.component.html',
   styleUrls: ['./line-graph.component.scss']
 })
 export class LineGraphComponent implements OnInit {
 
-  @Input() spaces = [{
-    id: '1',
-    powerReadouts: [{
-      timestamp: '2018-03-01',
-      value: 100,
-    }, {
-      timestamp: '2018-04-01',
-      value: 120,
-    }, {
-      timestamp: '2018-05-01',
-      value: 90,
-    }, {
-      timestamp: '2018-06-01',
-      value: 45,
-    }],
-  }, {
-    id: '2',
-    powerReadouts: [{
-      timestamp: '2018-03-01',
-      value: 20,
-    }, {
-      timestamp: '2018-04-01',
-      value: 30,
-    }, {
-      timestamp: '2018-05-01',
-      value: 90,
-    }, {
-      timestamp: '2018-06-01',
-      value: 5,
-    }],
-  }, {
-    id: '3',
-    powerReadouts: [{
-      timestamp: '2018-03-01',
-      value: 65,
-    }, {
-      timestamp: '2018-04-01',
-      value: 48,
-    }, {
-      timestamp: '2018-05-01',
-      value: 90,
-    }, {
-      timestamp: '2018-06-01',
-      value: 3,
-    }],
-  }];
+  @Input() spaces: Observable<ParkingSpace[]>;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private elementRef: ElementRef) {}
 
   backward(e: Event): void {
     e.preventDefault();
@@ -66,35 +25,58 @@ export class LineGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    const chart = c3.generate({
-      axis: {
-        x: {
-          type: 'timeseries',
-        },
-      },
-      bindto: this.elementRef.nativeElement.querySelector('svg'),
-      data: {
-        x: 'time',
-        columns: [
-          ['time'],
-        ],
-      },
-      legend: {
-      },
-      padding: {
-        top: 0,
-        right: 24,
-        bottom: 0,
-        left: 24,
-      },
-    });
-    setTimeout(() => {
-     const timestamps = <any[]>['time'].concat(this.spaces[0].powerReadouts.map(r => r.timestamp));
-     const values = this.spaces.map(s => <any[]>([s.id]).concat(
-       <any[]>(s.powerReadouts.map(r => r.value))));
-      chart.load({
-        columns: [timestamps].concat(values)
+
+    if (this.spaces) {
+      let timeout;
+      let chart;
+      this.spaces.subscribe(spaces => {
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+          if (!spaces.length) {
+            if (chart) {
+              chart.destroy();
+            }
+            return;
+          }
+          const timestamps = <any[]>['time'].concat(spaces[0].powerReadouts.map(r => r.timestamp));
+          const values = spaces.map(s => <any[]>([s.id])
+            .concat(<any[]>(s.powerReadouts.map(r => r.value))));
+          const total = values.reduce((previousValue, currentValue) => {
+            if (undefined === previousValue) {
+              return [].concat(currentValue);
+            }
+            return currentValue.map((v, i) => v + previousValue[i]);
+          });
+
+          total[0] = 'Total';
+
+          chart = c3.generate({
+            axis: {
+              x: {
+                type: 'timeseries',
+              },
+            },
+            bindto: this.elementRef.nativeElement.querySelector('svg'),
+            data: {
+              x: 'time',
+              columns: [timestamps].concat([total]),
+            },
+            legend: {
+              show: false,
+            },
+            padding: {
+              top: 0,
+              right: 24,
+              bottom: 0,
+              left: 24,
+            },
+          });
+          chart.resize();
+          this.changeDetectorRef.detectChanges();
+        }, 60);
       });
-    }, 2000);
+    }
   }
 }

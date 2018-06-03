@@ -1,15 +1,26 @@
-<mat-card>
-  <mat-card-content>
-    <mcn-line-graph></mcn-line-graph>
-    <dl>
-      <dd>{{ kwh }}</dd>
-      <dt>Current KWH</dt>
-      <dd></dd>
-      <dt>Spots Charging</dt>
-      <dd></dd>
-      <dt>Spots Occupied (Not Charging)</dt>
-      <dd></dd>
-      <dt>Spots Open</dt>
-    </dl>
-  </mat-card-content>
-</mat-card>
+<div [class.displayed]="totalSpaces > 0">
+  <mat-card>
+    <mat-card-content>
+      <mcn-line-graph
+        [spaces]="$spaces"></mcn-line-graph>
+      <dl>
+        <div>
+          <dt class="mat-form-field-label">Current KWH</dt>
+          <dd>{{ kwh }}</dd>
+        </div>
+        <div>
+          <dt class="mat-form-field-label">Spots Charging</dt>
+          <dd>{{ spacesCharging }}</dd>
+        </div>
+        <div>
+          <dt class="mat-form-field-label">Spots Occupied (Not Charging)</dt>
+          <dd>{{ spacesOccupiedNotCharging }}</dd>
+        </div>
+        <div>
+          <dt class="mat-form-field-label">Spots Open</dt>
+          <dd>{{ spacesOpen }}</dd>
+        </div>
+      </dl>
+    </mat-card-content>
+  </mat-card>
+</div>

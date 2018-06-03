@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ParkingSpaceService } from '../parking-space.service';
+import { FacilityService } from '../facility.service';
+import { ParkingSpace } from '../ParkingSpace';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mcn-readout',
@@ -9,21 +11,30 @@ import { ParkingSpaceService } from '../parking-space.service';
 })
 export class ReadoutComponent implements OnInit {
 
+  private spaces = new Subject<ParkingSpace[]>();
+
   @Input() facilityId: string;
+  @Input() facilityIndex: number; // This should go away
 
   kwh: number;
-  spotsCharging: number;
-  spotsOccupiedNotCharging: number;
-  spotsOpen: number;
+  spacesCharging: number;
+  spacesOccupiedNotCharging: number;
+  spacesOpen: number;
 
-  constructor(private parkingSpaceService: ParkingSpaceService) {}
+  $spaces = this.spaces.asObservable();
+
+  get totalSpaces(): number {
+    return this.spacesCharging + this.spacesOccupiedNotCharging + this.spacesOpen;
+  }
+  constructor(private facilityService: FacilityService) {}
 
   ngOnInit(): void {
     this.kwh = 150;
-    this.spotsCharging = 50;
-    this.spotsOccupiedNotCharging = 10;
-    this.spotsOpen = 20;
-    this.parkingSpaceService.$selectedSpaces.subscribe(() => {
+    this.facilityService.$selectedSpaces[this.facilityIndex].subscribe((spaces) => {
+      this.spacesCharging = spaces.filter(r => r.status === 'charging').length;
+      this.spacesOccupiedNotCharging = spaces.filter(r => r.status === 'occupied').length;
+      this.spacesOpen = spaces.filter(r => r.status === 'open').length;
+      this.spaces.next(spaces);
     });
   }
 

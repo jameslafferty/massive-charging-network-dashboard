@@ -19,9 +19,19 @@ export class FacilityService {
 
   private selectedSpaces = <Subject<ParkingSpace[]>[]>[];
 
-  $selectedSpaces = of(this.selectedSpaces);
+  $selectedSpaces = <Observable<ParkingSpace[]>[]>[];
+
+  constructor() {
+    this.selectedSpaces = facilities.map(() => new Subject<ParkingSpace[]>());
+    this.$selectedSpaces = this.selectedSpaces.map(s => s.asObservable());
+  }
 
   get(): Observable<Facility[]> {
     return of(facilities);
+  }
+
+  setSelectedSpaces(facilityId: string, spaces: ParkingSpace[]): void {
+    const index = facilities.indexOf(facilities.find(f => f.id === facilityId));
+    this.selectedSpaces[index].next(spaces);
   }
 }

@@ -1,0 +1,10 @@
+:host > div {
+  display: none;
+  &.displayed {
+    display: block;
+  }
+}
+
+dt, dd {
+  display: inline;
+}

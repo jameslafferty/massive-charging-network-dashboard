@@ -1,9 +1,11 @@
 <mat-toolbar>
   <span class="logo">Massive</span>
 </mat-toolbar>
-<div class="facility" *ngFor="let facility of facilities;">
+<div class="facility" *ngFor="let facility of facilities; index as i">
   <mcn-map
-    [id]="facility.id"></mcn-map>
+    [id]="facility.id"
+    [facilityIndex]="i"></mcn-map>
   <mcn-readout
-    [id]="facility.id"></mcn-readout>
+    [facilityId]="facility.id"
+    [facilityIndex]="i"></mcn-readout>
 </div>
